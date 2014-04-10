@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Clojure From A JVM Dev Perspective</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=792, user-scalable=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet"
+              href="shower/themes/ribbon/styles/screen.css">
+        <style>
+	  .with-caption h2 {
+          margin-top: 440px;
+	  float:right;
+	  }
+	</style>
+</head>
+<body class="list">
+	<header class="caption">
+		<h1>Clojure from a JVM dev perspective</h1>
+		<p>Peter Brachwitz, @p_brc</p>
+	</header>
+<!--	<section class="slide cover" id="Cover"><div>
+		<h2>Clojure From a JVM Developers Perspective</h2>
+		
+		
+		<!--
+			To apply styles to the certain slides
+			set slide ID to get needed elements
+			
+		<style>
+			#Cover h2 {
+				margin:30px 0 0;
+				color:#FFF;
+				text-align:center;
+				font-size:70px;
+				}
+			#Cover p {
+				margin:10px 0 0;
+				text-align:center;
+				color:#FFF;
+				font-style:italic;
+				font-size:20px;
+				}
+				#Cover p a {
+					color:#FFF;
+			}
+		</style>
+	</div></section>-->
+	<section class="slide"><div>
+		<h2>Why Would You Want To Go From Java To Clojure?</h2>
+		<ol>
+			<li>Simpler, more elegant
+                          <ul>
+                            <li>Focus on the problem you are trying to
+                              solve not the ceremony around your
+                              implementation language</li>
+                          </ul>
+                        </li>
+			<li>Good performance</li>
+			<li>Powerful extensibility</li>
+			<li>FP and concurrency features</li>
+			
+		</ol>
+		<p class="note">I won't cover most of this in this
+		talk. So you have to take my word for it. </p>
+	</div></section>
+	<section class="slide"><div>
+		<h2>What I Am Going To Show You Today</h2>
+                <ol>
+                  <li>Entry points to get started with Clojure</li>
+                  <li>Basic syntax for people coming from a C-style
+                  language</li>
+                  
+                </ol>
+
+	</div></section>
+	<section class="slide"><div>
+		<h2>To Get a First Taste of Clojure</h2>
+                <ol>
+                  <li>There are multiple web-based offerings
+                    <ul>
+                      <li><a href="http://tryclj.com/">http://tryclj.com/</a></li>
+                      <li><a href="http://clojurescriptkoans.com/" >http://clojurescriptkoans.com/</a></li>
+                    </ul>
+                    
+                  <li>No installation, no hassle</li>
+                  <li>Get to know the basics</li>
+                </ol>
+                
+	</div></section>
+
+        <section class="slide cover with-caption"> <div>
+        	<h2><a href="http://clojurescriptkoans.com">http://clojurescriptkoans.com</a></h2>
+		<img width="1024" src="pictures/koans.png" alt="">
+	    
+        </div></section>
+	<section class="slide"><div>
+		<h2>If You Want To Install It On Your Machine</h2>
+                <ol>
+                  <li>You need  Java. I assume you've  got that  already</li>
+                  <li>Leiningen is the easiest way to get started</li>
+                  <li><code>lein new your-new-app</code></li>
+                </ol>
+	</div></section>
+
+	<section class="slide cover with-caption" id="Leiningen"><div>
+	    <h2><a href="http://leiningen.org/">http://leiningen.org/</a></h2>
+		<img width="1024" src="pictures/leiningen.png" alt="">
+	
+	</div></section>
+
+
+        <section class="slide cover with-caption"> <div>
+            <h2><a href="http://dev.clojure.org">http://dev.clojure.org</a></h2>
+		<img width="1024" src="pictures/getting-started.png" alt="">
+	    
+        </div></section>
+
+
+        <section class="slide shout" id="SeeMore"><div>
+		<h2>Let's look at some code</h2>
+		<style>
+			
+			#SeeMore h2 {
+				font-size:100px
+				}
+			
+		</style>
+	</div></section>
+        <section class="slide" id="comparison"><div>
+            <style>
+              #comparison pre {
+               margin: 0;
+              }
+              #comparison code {
+              line-height:1;
+              }
+            </style>
+            <table>
+              <tr>
+                <th>Java</th>
+                <th>Clojure</th>
+              </tr>
+              <tr>
+                <td><code> int i = 5</code></td>
+                <td><code>(def i 5)</code></td>
+              </tr>
+              <tr>
+                <td><pre><code>
+if(x == 0) 
+    return y
+else 
+    return z
+                </code></pre></td>
+                <td><pre><code>
+(cond (zero? x)
+      y
+      y)
+                  </code></pre> </td>
+              </tr>
+              <tr>
+                <td><pre><code>
+x * y * z
+                </code></pre></td>
+                <td><pre><code>
+(* x y z)
+                </code></pre></td>
+              </tr>
+              <tr>
+                <td><pre><code>
+foo(x, y, z)
+                </code></pre></td>
+                <td><pre><code>
+(foo x y z)
+                </code></pre></td>
+              </tr>
+              <tr>
+                <td><pre><code>
+foo.bar(x)
+                </code></pre></td>
+                <td><pre><code>
+(. foo bar x)
+                </code></pre></td>
+              </tr>
+
+            </table>
+        </div></section>
+
+        <section class="slide"><div>
+            <h2>Sources:</h2>
+            <ul>
+              <li><a href="http://youtu.be/P76Vbsk_3J0">Rich Hickey: Clojure. An Introduction for Java
+                  Programmers. (YouTube)</a></li>
+              <li><a href="http://manning.com/fogus2/">Michael Fogus/Chris Houser: The Joy of Clojure.
+                  Manning 2014 (MEAP)</a></li></ul>
+          </div> 
+        </section>
+
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+		-->
+	<div class="progress"><div></div></div>
+	<script src="shower/shower.min.js"></script>
+	<!-- Copyright © 2014 Peter Brachwitz -->
+
+</body>
+</html>
