@@ -64,16 +64,16 @@ nil  ;Null
 (list 1 2 3)
 
 
-;;; Vectors (think Array, random-access, grow at the end, immutable, persistent)
+;;; Vectors (think Array, access by index, grow at the end, immutable, persistent)
 
 [1 2 3 4]
 
 
 ;;; Maps (immutable, persistent)
-{ :name "rabbit" :lives-in "hole"}
+{ :name "rabbit", :lives-in "hole"}
 
 ;;; Sets (immutable, persistent)
-#{ "peter" "paul" "mary" }
+#{ "peter" "paul" "mary"}
 
 
 ;;; Syntax
@@ -130,6 +130,53 @@ x
 ;;; doto takes an instance expression and than evaluates the following
 ;;; method calls on that instance
 (doto (new java.util.HashMap) (.put "a" 1) (.put "b" 2))
+
+
+;;; Bonus Material
+
+;;; What about Polymorphism?
+;;; ==================================================================
+
+;;;Excerpt From: Luke VanderHart and Ryan Neufeld. “Clojure Cookbook.” 
+
+(defmulti area
+ "Calculate the area of a shape"
+ :type)
+
+(defmethod area :rectangle [shape]
+  (* (:length shape) (:width shape)))
+
+(area {:type :rectangle :length 2 :width 4})
+
+;; Trying to get the area of a new shape...
+(area {:type :circle :radius 1})
+
+(defmethod area :circle [shape]
+  (* (. Math PI) (:radius shape) (:radius shape)))
+
+(area {:type :circle :radius 1})
+
+
+
+;;; Alternatively you can use Protocols and Records
+
+;; Define the "shape" of a Shape object
+(defprotocol Shape
+  (area [s] "Calculate the area of a shape")
+  (perimeter [s] "Calculate the perimeter of a shape"))
+
+;; Define a concrete Shape, the Rectangle
+(defrecord Rectangle [length width]
+  Shape
+  (area [this] (* length width))
+  (perimeter [this] (+ (* 2 length)
+                       (* 2 width))))
+
+(->Rectangle 2 4)
+
+(area (->Rectangle 2 4))
+
+
 
 
 
