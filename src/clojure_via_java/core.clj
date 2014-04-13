@@ -2,14 +2,15 @@
   (:require [clojure.repl :refer [doc source]]))
 
 
-;;; Clojure has 11 data types most of them are familiar to you
+;;; Clojure has about 12 data types most of them are familiar to you
 ;;; already...
-;;; -------------------------------
+;;; ========================================================
 
 
 1 ;Integers
 
 (type 1)
+(type 142938498237489237489237)
 
 2.0 ;Doubles
 
@@ -37,7 +38,7 @@
 
 first ; symbols
 
-(type first)
+(type 'first)
 
 true ;boolean
 
@@ -52,28 +53,31 @@ nil  ;Null
 (type #"\s")
 
 ;;; ... in addition there are 4 data structures you need to know:
-;;; ----------------------------------
+;;; ==============================================================
 
 
 
-;;; Lists (singly-linked, append at the front, immutable)
+;;; Lists (singly-linked, grow at the front, immutable, persistent)
 
-'(1 2 3)
+'(1, 2, 3)
 
 (list 1 2 3)
 
 
-;;; Vectors (think Array, random-access, append at the end, immutable)
+;;; Vectors (think Array, random-access, grow at the end, immutable, persistent)
 
 [1 2 3 4]
 
 
-;;; Maps (immutable)
+;;; Maps (immutable, persistent)
 { :name "rabbit" :lives-in "hole"}
 
-;;; Sets (immutable)
-#{ "peter" "paul" "mary"}
+;;; Sets (immutable, persistent)
+#{ "peter" "paul" "mary" }
 
+
+;;; Syntax
+;;; ==================================================================
 
 ;;; Everything else is build upon that. You have seen all the syntax
 ;;; there is.
@@ -82,7 +86,13 @@ nil  ;Null
 
 (str "hello" " " "world" "!")
 
-;;; You define them using a list:
+;;; Definitions can be made with a list like this
+
+(def x 1)
+
+x
+
+;;; Similarily you define functions using a list:
 
 (fn [x] (+ x x))
 
@@ -94,10 +104,35 @@ nil  ;Null
 
 (defn add [x] (+ x x))
 
-(add  2)
+(add  2 )
+
+;;; Java Interop
+;;; =====================================================================
 
 
-;;; Java Interop?
+;;; Clojure comes with good Java support (as of 1.6 this works both
+;;; ways as there now is also a Clojure API from Java)
+
+;;; You can access Java  methods -- static or not -- like this
+(. System getProperty "java.vm.version")
+
+;;; If you want to call a method more than one level deep into the
+;;; object graph use two dots
+
+(.. System (getProperties) (get "os.name"))
+
+;;; No suprises here: new creates a new object
+(new java.util.Date)
+
+;;; In addition there is some cleverness build in to work with the
+;;; sometimes awkward Java APIs
+
+;;; doto takes an instance expression and than evaluates the following
+;;; method calls on that instance
+(doto (new java.util.HashMap) (.put "a" 1) (.put "b" 2))
+
+
+
 
 
 
